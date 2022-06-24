@@ -1,0 +1,49 @@
+.mainContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 60px;
+  }
+  
+  
+  .dataContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 625px;
+    max-height: 80vh;
+    margin: 0px;
+    padding:25px;
+    border-radius: 8px;
+    background: #ffffff;
+  }
+  
+  .header {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 600;
+    color: #000000
+  }
+  
+  .bio {
+    text-align: center;
+    color: #000000;
+    font-size: 14px;
+    margin-top: 12px;
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+  
+  .mathButton {
+    cursor: pointer;
+    margin-top: 16px;
+    padding: 8px;
+    border: 0;
+    border-radius: 5px;
+  }
+  
+  .count {
+    text-align: center;
+    font-size: 22px;
+    color: black;
+  }
