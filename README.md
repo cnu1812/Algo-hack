@@ -19,8 +19,8 @@ Docker should be running in the background.
 
 It will take some time to up, if successfully completed output will look like this.
 
-## image
 
+![expected output](https://user-images.githubusercontent.com/75531528/175870738-13a630fa-0b29-49b5-8c4c-6d2698fa1230.png)
 
 
 
