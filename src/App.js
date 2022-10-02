@@ -19,19 +19,18 @@ const App = () => {
       if (!connector) {
         console.log("No connection");
         return;
-      } else {
-        console.log("We have connection", connector);
       }
+
       const { accounts } = connector;
 
       if (accounts.length !== 0) {
         const account = accounts[0];
-        console.log("Found an authorized account:", account);
         setCurrentAccount(account);
-      } else {
-        setCurrentAccount(null);
-        console.log("No authorized account found");
-      }
+        return
+      } 
+        
+      setCurrentAccount(null);
+      
     } catch (error) {
       console.log(error);
     }
@@ -45,7 +44,6 @@ const App = () => {
 
       if (!connector.connected) {
         await connector.createSession();
-        console.log("Creating new connector session");
       }
 
       if (connector.connected) {
@@ -60,10 +58,7 @@ const App = () => {
         }
         // Get provided accounts
         const { accounts } = payload.params[0];
-        console.log(
-          "connector.on connect: Connected an account with address:",
-          accounts[0]
-        );
+        
         setConnector(connector);
         setCurrentAccount(accounts[0]);
       });
@@ -91,7 +86,7 @@ const App = () => {
 
   const closeConnection = async () => {
     connector.killSession();
-    console.log("Killing session for wallet with address: ", currentAccount);
+    
     setConnector(null);
   };
 
@@ -160,7 +155,6 @@ const App = () => {
       } else {
         // Sign & submit the transaction with algoconnect wallet
         let signedTxn = await myAlgoConnect.signTransaction(txn.toByte());
-        console.log("Signed transaction with txID: %s", txId);
         await algodClient.sendRawTransaction(signedTxn.blob).do();
       }
 
@@ -168,12 +162,8 @@ const App = () => {
       let transactionResponse = await algodClient
         .pendingTransactionInformation(txId)
         .do();
-      console.log("Called app-id:", transactionResponse["txn"]["txn"]["apid"]);
       if (transactionResponse["global-state-delta"] !== undefined) {
-        console.log(
-          "Global State updated:",
-          transactionResponse["global-state-delta"]
-        );
+
         await getCount();
       }
 
@@ -225,7 +215,7 @@ const App = () => {
       } else {
         // Sign & submit the transaction with algoconnect wallet
         let signedTxn = await myAlgoConnect.signTransaction(txn.toByte());
-        console.log("Signed transaction with txID: %s", txId);
+        
         await algodClient.sendRawTransaction(signedTxn.blob).do();
       }
 
@@ -233,12 +223,9 @@ const App = () => {
       let transactionResponse = await algodClient
         .pendingTransactionInformation(txId)
         .do();
-      console.log("Called app-id:", transactionResponse["txn"]["txn"]["apid"]);
+      
       if (transactionResponse["global-state-delta"] !== undefined) {
-        console.log(
-          "Global State updated:",
-          transactionResponse["global-state-delta"]
-        );
+        
         await getCount();
       }
       setLoading1(false);
@@ -254,7 +241,7 @@ const App = () => {
       .do();
     let globalState = [];
     globalState = applicationInfoResponse["params"]["global-state"];
-    console.log("count is: ", globalState[0]["value"]["uint"]);
+    
     setGlobalCount(globalState[0]["value"]["uint"]);
   };
 
@@ -262,7 +249,7 @@ const App = () => {
     checkIfWalletIsConnected();
 
     getCount();
-    console.log("currentAccount:", currentAccount);
+    
   }, [currentAccount, connector, checkIfWalletIsConnected]);
 
   return (
